@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<property name="LOG_PATH" value="./logs" />
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+       <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%-5p [%d] %C:%L - %m %n</pattern>
+            <charset>utf-8</charset>
+        </encoder>
+        <layout class="ch.qos.logback.classic.PatternLayout">   
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n   
+            </pattern>   
+        </layout>   
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>info</level>
+        </filter>
+    </appender>   
+    <appender name="FILE"  class="ch.qos.logback.core.rolling.RollingFileAppender">   
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%-5p [%d] %C:%L - %m %n</pattern>
+            <charset>utf-8</charset>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${LOG_PATH}/logsync.%d{yyyy-MM-dd}.log</FileNamePattern>   
+            <MaxHistory>30</MaxHistory>
+        </rollingPolicy>   
+        <layout class="ch.qos.logback.classic.PatternLayout">  
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n   
+            </pattern>   
+       </layout> 
+       <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+         <MaxFileSize>10MB</MaxFileSize>
+       </triggeringPolicy>
+       <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>debug</level>
+        </filter>
+    </appender>
+    <root level="debug">
+    	<appender-ref ref="FILE" />
+  	</root>
+  	<root level="info">
+    	<appender-ref ref="STDOUT" />
+  	</root>
+</configuration>
